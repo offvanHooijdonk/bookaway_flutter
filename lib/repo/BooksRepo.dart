@@ -25,7 +25,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       DateTime.now().toString(),
-      1,
+      null,
       "Taken",
       1),
   BookModel(
@@ -34,7 +34,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       DateTime.now().toString(),
-      1,
+      null,
       "Available",
       null),
   BookModel(
@@ -43,9 +43,9 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       DateTime.now().toString(),
-      1,
+      null,
       "Taken",
-      1),
+      2),
   BookModel(
       6,
       "Kotlin in Action",
@@ -70,7 +70,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       DateTime.now().toString(),
-      1,
+      null,
       "Available",
       null),
   BookModel(
@@ -79,7 +79,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       DateTime.now().toString(),
-      1,
+      null,
       "Available",
       null),
 ];

@@ -35,7 +35,10 @@ class _MainScreenState extends State<MainScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
                 Spacer(),
-                SvgPicture.asset("assets/ic_unmarked.svg"),
+                SvgPicture.asset(
+                  (books[index].readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
+                  color: (books[index].readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
+                ),
               ]),
               SizedBox(
                 height: 8,
@@ -46,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                   Spacer(),
                   Visibility(
                     visible: books[index].readerId != null,
-                    child: Text("by ${getNameFromEmail(findUser(books[index].readerId)?.email)}"),
+                    child: Text("by ${getReaderName(findUser(books[index].readerId))}"),
                   )
                 ],
               ),
@@ -62,6 +65,6 @@ UserModel findUser(int id) {
   return id != null ?  users.firstWhere((el) => el.id == id, orElse: null) : null;
 }
 
-String getNameFromEmail(String email) {
-  return email != null ? email.substring(0, email.indexOf("@")) : null;
+String getReaderName(UserModel user) {
+  return user != null ? ((user == Session().currentUser) ? "you" : user.email.substring(0, user.email.indexOf("@"))) : null;
 }
