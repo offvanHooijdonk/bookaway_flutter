@@ -1,5 +1,7 @@
+import 'package:bookaway_flutter/model/BookModel.dart';
 import 'package:bookaway_flutter/model/UserModel.dart';
 import 'package:bookaway_flutter/repo/BooksRepo.dart';
+import 'package:bookaway_flutter/ui/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -25,19 +27,26 @@ class _MainScreenState extends State<MainScreen> {
       body: ListView.builder(
         itemCount: books.length,
         itemBuilder: (BuildContext context, int index) {
+          BookModel book = books[index];
           return Card(
-              child: Container(
+              child: InkWell(
+                onTap: () => {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return BookInfoScreen(book);
+                  }))
+                },
+                  child: Container(
             padding: EdgeInsets.all(16),
             child: Column(children: [
               Row(children: [
                 Text(
-                  books[index].title,
+                  book.title,
                   style: TextStyle(fontSize: 20),
                 ),
                 Spacer(),
                 SvgPicture.asset(
-                  (books[index].readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
-                  color: (books[index].readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
+                  (book.readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
+                  color: (book.readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
                 ),
               ]),
               SizedBox(
@@ -45,16 +54,18 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Row(
                 children: [
-                  Text(books[index].status),
+                  Text(getStatusTitle(
+                    book.status,
+                  )),
                   Spacer(),
                   Visibility(
-                    visible: books[index].readerId != null,
-                    child: Text("by ${getReaderName(findUser(books[index].readerId))}"),
+                    visible: book.readerId != null,
+                    child: Text("by ${getReaderName(findUser(book.readerId))}"),
                   )
                 ],
               ),
             ]),
-          ));
+          )));
         },
       ),
     );
@@ -62,9 +73,28 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 UserModel findUser(int id) {
-  return id != null ?  users.firstWhere((el) => el.id == id, orElse: null) : null;
+  return id != null ? users.firstWhere((el) => el.id == id, orElse: null) : null;
 }
 
 String getReaderName(UserModel user) {
-  return user != null ? ((user == Session().currentUser) ? "you" : user.email.substring(0, user.email.indexOf("@"))) : null;
+  return user != null
+      ? ((user == Session().currentUser) ? "you" : user.email.substring(0, user.email.indexOf("@")))
+      : null;
+}
+
+Color getStatusColor(BookModel book) {
+  return book.status == Status.AVAILABLE ? Colors.green : (book.status == Status.TAKEN ? Colors.orange : Colors.grey);
+}
+
+String getStatusTitle(Status status) {
+  String result = "Unknown";
+  switch (status) {
+    case Status.AVAILABLE:
+      result = "Available";
+      break;
+    case Status.TAKEN:
+      result = "Taken";
+      break;
+  }
+  return result;
 }

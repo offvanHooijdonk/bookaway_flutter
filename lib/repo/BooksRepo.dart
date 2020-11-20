@@ -8,7 +8,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       1,
-      "Available",
+      Status.AVAILABLE,
       null),
   BookModel(
       2,
@@ -17,7 +17,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       1,
-      "Available",
+      Status.AVAILABLE,
       null),
   BookModel(
       3,
@@ -26,7 +26,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       null,
-      "Taken",
+      Status.TAKEN,
       1),
   BookModel(
       4,
@@ -35,7 +35,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       null,
-      "Available",
+      Status.AVAILABLE,
       null),
   BookModel(
       5,
@@ -44,7 +44,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       null,
-      "Taken",
+      Status.TAKEN,
       2),
   BookModel(
       6,
@@ -53,7 +53,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       1,
-      "Available",
+      Status.AVAILABLE,
       null),
   BookModel(
       7,
@@ -62,7 +62,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       1,
-      "Available",
+      Status.AVAILABLE,
       null),
   BookModel(
       8,
@@ -71,7 +71,7 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       null,
-      "Available",
+      Status.AVAILABLE,
       null),
   BookModel(
       9,
@@ -80,6 +80,6 @@ List<BookModel> books = [
       DateTime.now().toString(),
       DateTime.now().toString(),
       null,
-      "Available",
+      Status.AVAILABLE,
       null),
 ];

@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        primaryColorDark: Colors.blue,
+        accentColor: Colors.pinkAccent
       ),
       home: LoginPage(title: 'Flutter Demo Home Page'),
     );
@@ -44,9 +47,9 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 TextField(decoration: InputDecoration(labelText: "Login"),),
                 TextField(decoration: InputDecoration(labelText: "Password"),),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () => { Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MainScreen();
+                    return MainScreen(); // TODO make Main top nav screen
                   })) },
                   child: Text("Login"),
                 )

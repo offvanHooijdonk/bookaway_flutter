@@ -6,8 +6,12 @@ class BookModel {
   String updatedAt;
   String deadline;
   int ownerId;
-  String status;
+  Status status;
   int readerId;
 
   BookModel(this.id, this.title, this.createdAt, this.updatedAt, this.deadline, this.ownerId, this.status, this.readerId);
+}
+
+enum Status {
+  AVAILABLE, TAKEN
 }
