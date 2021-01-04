@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'file:///F:/WORK/Android/Projects/bookaway_flutter/lib/ui/main.dart';
+import 'package:bookaway_flutter/ui/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

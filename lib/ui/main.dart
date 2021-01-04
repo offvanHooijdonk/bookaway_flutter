@@ -1,4 +1,5 @@
-import 'package:bookaway_flutter/main_screen.dart';
+import 'package:bookaway_flutter/navigation/Navigator.dart';
+import 'package:bookaway_flutter/ui/books_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         primaryColorDark: Colors.blue,
         accentColor: Colors.pinkAccent
       ),
-      home: LoginPage(title: 'Flutter Demo Home Page'),
+      initialRoute: Nav.LOGIN,
+      routes: Nav(context).routes,
     );
   }
 }
@@ -48,9 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(decoration: InputDecoration(labelText: "Login"),),
                 TextField(decoration: InputDecoration(labelText: "Password"),),
                 ElevatedButton(
-                  onPressed: () => { Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MainScreen(); // TODO make Main top nav screen
-                  })) },
+                  onPressed: () => { Nav(context).navBooksList() },
                   child: Text("Login"),
                 )
               ],

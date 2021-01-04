@@ -1,5 +1,6 @@
 import 'package:bookaway_flutter/model/BookModel.dart';
 import 'package:bookaway_flutter/model/UserModel.dart';
+import 'package:bookaway_flutter/navigation/Navigator.dart';
 import 'package:bookaway_flutter/repo/BooksRepo.dart';
 import 'package:bookaway_flutter/ui/book_info.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,14 @@ List<UserModel> users = [
   UserModel(2, "john.doe@itechart-group.com"),
 ];
 
-class MainScreen extends StatefulWidget {
+class BooksListScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _MainScreenState();
+    return _BooksListScreenState();
   }
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _BooksListScreenState extends State<BooksListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,42 +31,38 @@ class _MainScreenState extends State<MainScreen> {
           BookModel book = books[index];
           return Card(
               child: InkWell(
-                onTap: () => {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return BookInfoScreen(book);
-                  }))
-                },
+                  onTap: () => { Nav(context).navBookInfo(book) },
                   child: Container(
-            padding: EdgeInsets.all(16),
-            child: Column(children: [
-              Row(children: [
-                Text(
-                  book.title,
-                  style: TextStyle(fontSize: 20),
-                ),
-                Spacer(),
-                SvgPicture.asset(
-                  (book.readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
-                  color: (book.readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
-                ),
-              ]),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Text(getStatusTitle(
-                    book.status,
-                  )),
-                  Spacer(),
-                  Visibility(
-                    visible: book.readerId != null,
-                    child: Text("by ${getReaderName(findUser(book.readerId))}"),
-                  )
-                ],
-              ),
-            ]),
-          )));
+                    padding: EdgeInsets.all(16),
+                    child: Column(children: [
+                      Row(children: [
+                        Text(
+                          book.title,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Spacer(),
+                        SvgPicture.asset(
+                          (book.readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
+                          color: (book.readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
+                        ),
+                      ]),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          Text(getStatusTitle(
+                            book.status,
+                          )),
+                          Spacer(),
+                          Visibility(
+                            visible: book.readerId != null,
+                            child: Text("by ${getReaderName(findUser(book.readerId))}"),
+                          )
+                        ],
+                      ),
+                    ]),
+                  )));
         },
       ),
     );

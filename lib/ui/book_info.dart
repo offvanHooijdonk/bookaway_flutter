@@ -1,23 +1,18 @@
-import 'package:bookaway_flutter/main_screen.dart';
+import 'file:///D:/WORK/Android/Projects/bookaway_flutter/lib/ui/books_list.dart';
 import 'package:bookaway_flutter/model/BookModel.dart';
 import 'package:bookaway_flutter/model/UserModel.dart';
 import 'package:flutter/material.dart';
 
 class BookInfoScreen extends StatefulWidget {
-  BookInfoScreen(this.book) : super();
-
-  final BookModel book;
 
   @override
   State<StatefulWidget> createState() {
-    return _BookInfoState(book);
+    return _BookInfoState();
   }
 }
 
 class _BookInfoState extends State<BookInfoScreen> {
-  _BookInfoState(this.book) : super();
-
-  final BookModel book;
+  BookModel book;
 
   bool isButtonEnabled() {
     return book.status == Status.AVAILABLE || (book.status == Status.TAKEN && book.readerId == Session().currentUser.id);
@@ -27,6 +22,7 @@ class _BookInfoState extends State<BookInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    book = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         appBar: AppBar(
           title: Text("Book"),
