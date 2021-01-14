@@ -30,7 +30,7 @@ class Nav {
     Navigator.pushReplacementNamed(_context, BOOKS_LIST);
   }
 
-  void navBookInfo(BookModel bookModel) {
-    Navigator.pushNamed(_context, BOOK_INFO, arguments: bookModel);
+  void navBookInfo(int bookId) {
+    Navigator.pushNamed(_context, BOOK_INFO, arguments: bookId);
   }
 }

@@ -2,9 +2,9 @@ import 'package:bookaway_flutter/model/BookModel.dart';
 import 'package:bookaway_flutter/model/UserModel.dart';
 import 'package:bookaway_flutter/navigation/Navigator.dart';
 import 'package:bookaway_flutter/repo/BooksRepo.dart';
-import 'package:bookaway_flutter/ui/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:koin_flutter/koin_flutter.dart';
 
 List<UserModel> users = [
   UserModel(1, "yahor.fralou@itechart-group.com"),
@@ -21,6 +21,8 @@ class BooksListScreen extends StatefulWidget {
 class _BooksListScreenState extends State<BooksListScreen> {
   @override
   Widget build(BuildContext context) {
+    final repo = get<BooksRepo>();
+    final books = repo.getAll();
     return Scaffold(
       appBar: AppBar(
         title: Text("BookAway"),
@@ -31,7 +33,7 @@ class _BooksListScreenState extends State<BooksListScreen> {
           BookModel book = books[index];
           return Card(
               child: InkWell(
-                  onTap: () => { Nav(context).navBookInfo(book) },
+                  onTap: () => { Nav(context).navBookInfo(book.id) },
                   child: Container(
                     padding: EdgeInsets.all(16),
                     child: Column(children: [

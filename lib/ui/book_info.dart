@@ -1,7 +1,9 @@
-import 'file:///D:/WORK/Android/Projects/bookaway_flutter/lib/ui/books_list.dart';
+import 'package:bookaway_flutter/repo/BooksRepo.dart';
+import 'package:bookaway_flutter/ui/books_list.dart';
 import 'package:bookaway_flutter/model/BookModel.dart';
 import 'package:bookaway_flutter/model/UserModel.dart';
 import 'package:flutter/material.dart';
+import 'package:koin_flutter/koin_flutter.dart';
 
 class BookInfoScreen extends StatefulWidget {
 
@@ -22,7 +24,10 @@ class _BookInfoState extends State<BookInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    book = ModalRoute.of(context).settings.arguments;
+    final repo = get<BooksRepo>();
+    final bookId = ModalRoute.of(context).settings.arguments;
+    book = repo.findById(bookId);
+
     return Scaffold(
         appBar: AppBar(
           title: Text("Book"),

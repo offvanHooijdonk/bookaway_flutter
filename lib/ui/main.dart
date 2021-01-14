@@ -1,8 +1,12 @@
+import 'package:bookaway_flutter/di/repoModule.dart';
 import 'package:bookaway_flutter/navigation/Navigator.dart';
-import 'package:bookaway_flutter/ui/books_list.dart';
 import 'package:flutter/material.dart';
+import 'package:koin/koin.dart';
 
 void main() {
+  startKoin((app){
+    app.module(repoModule);
+  });
   runApp(MyApp());
 }
 
