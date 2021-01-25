@@ -2,14 +2,40 @@
 class BookModel {
   int id;
   String title;
-  String createdAt;
-  String updatedAt;
-  String deadline;
+  DateTime createdAt;
+  DateTime updatedAt;
+  DateTime deadline;
   int ownerId;
   Status status;
   int readerId;
 
   BookModel(this.id, this.title, this.createdAt, this.updatedAt, this.deadline, this.ownerId, this.status, this.readerId);
+
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "title": title,
+      "createdAt": createdAt,
+      "updatedAt": updatedAt,
+      "deadLine": deadline,
+      "ownerId": ownerId,
+      "status": status,
+      "readerId": readerId,
+    };
+  }
+  
+  static BookModel fromMap(Map<String, dynamic> map){
+    return BookModel(
+      map["id"],
+      map["title"],
+      map["createdAt"],
+      map["updatedAt"],
+      map["deadLine"],
+      map["ownerId"],
+      map["status"],
+      map["readerId"],
+    );
+  }
 }
 
 enum Status {

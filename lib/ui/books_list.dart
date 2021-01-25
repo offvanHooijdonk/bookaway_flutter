@@ -22,52 +22,58 @@ class _BooksListScreenState extends State<BooksListScreen> {
   @override
   Widget build(BuildContext context) {
     final repo = get<BooksRepo>();
-    final books = repo.getAll();
     return Scaffold(
-      appBar: AppBar(
-        title: Text("BookAway"),
-      ),
-      body: ListView.builder(
-        itemCount: books.length,
-        itemBuilder: (BuildContext context, int index) {
-          BookModel book = books[index];
-          return Card(
-              child: InkWell(
-                  onTap: () => { Nav(context).navBookInfo(book.id) },
-                  child: Container(
-                    padding: EdgeInsets.all(16),
-                    child: Column(children: [
-                      Row(children: [
-                        Text(
-                          book.title,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Spacer(),
-                        SvgPicture.asset(
-                          (book.readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
-                          color: (book.readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
-                        ),
-                      ]),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Text(getStatusTitle(
-                            book.status,
-                          )),
-                          Spacer(),
-                          Visibility(
-                            visible: book.readerId != null,
-                            child: Text("by ${getReaderName(findUser(book.readerId))}"),
-                          )
-                        ],
-                      ),
-                    ]),
-                  )));
-        },
-      ),
-    );
+        appBar: AppBar(
+          title: Text("BookAway"),
+        ),
+        body: FutureBuilder<List<BookModel>>(
+            future: repo.getAll(),
+            builder: (BuildContext context, AsyncSnapshot<List<BookModel>> snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    BookModel book = snapshot.data[index];
+                    return Card(
+                        child: InkWell(
+                            onTap: () => {Nav(context).navBookInfo(book.id)},
+                            child: Container(
+                              padding: EdgeInsets.all(16),
+                              child: Column(children: [
+                                Row(children: [
+                                  Text(
+                                    book.title,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  Spacer(),
+                                  SvgPicture.asset(
+                                    (book.readerId != null) ? "assets/ic_marked.svg" : "assets/ic_unmarked.svg",
+                                    color: (book.readerId == Session().currentUser.id) ? Colors.orange : Colors.black,
+                                  ),
+                                ]),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(getStatusTitle(
+                                      book.status,
+                                    )),
+                                    Spacer(),
+                                    Visibility(
+                                      visible: book.readerId != null,
+                                      child: Text("by ${getReaderName(findUser(book.readerId))}"),
+                                    )
+                                  ],
+                                ),
+                              ]),
+                            )));
+                  },
+                );
+              } else {
+                return Center(child: CircularProgressIndicator(),);
+              }
+            }));
   }
 }
 
@@ -76,9 +82,7 @@ UserModel findUser(int id) {
 }
 
 String getReaderName(UserModel user) {
-  return user != null
-      ? ((user == Session().currentUser) ? "you" : user.email.substring(0, user.email.indexOf("@")))
-      : null;
+  return user != null ? ((user == Session().currentUser) ? "you" : user.email.substring(0, user.email.indexOf("@"))) : null;
 }
 
 Color getStatusColor(BookModel book) {

@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sqflite:
+  path:
   flutter_svg: ^0.19.1
   koin: ^0.14.2
   koin_flutter: ^0.10.0
