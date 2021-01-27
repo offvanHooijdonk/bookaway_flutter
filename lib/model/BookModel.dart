@@ -1,4 +1,3 @@
-
 class BookModel {
   int id;
   String title;
@@ -9,7 +8,8 @@ class BookModel {
   Status status;
   int readerId;
 
-  BookModel(this.id, this.title, this.createdAt, this.updatedAt, this.deadline, this.ownerId, this.status, this.readerId);
+  BookModel(
+      this.id, this.title, this.createdAt, this.updatedAt, this.deadline, this.ownerId, this.status, this.readerId);
 
   Map<String, dynamic> toMap() {
     return {
@@ -23,21 +23,19 @@ class BookModel {
       "readerId": readerId,
     };
   }
-  
-  static BookModel fromMap(Map<String, dynamic> map){
+
+  static BookModel fromMap(Map<String, dynamic> map) {
     return BookModel(
       map["id"],
       map["title"],
-      map["createdAt"],
-      map["updatedAt"],
-      map["deadLine"],
+      DateTime.tryParse(map["createdAt"] ?? ""),
+      DateTime.tryParse(map["updatedAt"] ?? ""),
+      DateTime.tryParse(map["deadLine"] ?? ""),
       map["ownerId"],
-      map["status"],
+      Status.values.firstWhere((element) => element.toString() == "Status." + map["status"]),
       map["readerId"],
     );
   }
 }
 
-enum Status {
-  AVAILABLE, TAKEN
-}
+enum Status { AVAILABLE, TAKEN }

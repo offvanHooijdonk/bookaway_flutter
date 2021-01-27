@@ -6,7 +6,7 @@ class BooksRepo {
 
   BookDao _dao;
 
-  Future<List<BookModel>> getAll() async {
+  Future<List<BookModel>> getAll() {
     return _dao.listAll();
   }
 

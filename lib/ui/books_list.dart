@@ -29,6 +29,9 @@ class _BooksListScreenState extends State<BooksListScreen> {
         body: FutureBuilder<List<BookModel>>(
             future: repo.getAll(),
             builder: (BuildContext context, AsyncSnapshot<List<BookModel>> snapshot) {
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
               if (snapshot.hasData) {
                 return ListView.builder(
                   itemCount: snapshot.data.length,
