@@ -13,4 +13,8 @@ class BooksRepo {
   Future<BookModel> findById(int id) {
     return _dao.getById(id);
   }
+
+  void update(BookModel book) {
+    _dao.update(book);
+  }
 }

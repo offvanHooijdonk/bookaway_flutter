@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class BookModel {
   int id;
   String title;
@@ -13,13 +15,13 @@ class BookModel {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
+      //"id": id,
       "title": title,
-      "createdAt": createdAt,
-      "updatedAt": updatedAt,
-      "deadLine": deadline,
+      "createdAt": createdAt.toString(),
+      "updatedAt": updatedAt.toString(),
+      "deadLine": deadline?.toString(),
       "ownerId": ownerId,
-      "status": status,
+      "status": describeEnum(status),
       "readerId": readerId,
     };
   }

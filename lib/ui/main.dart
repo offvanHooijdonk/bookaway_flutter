@@ -1,12 +1,13 @@
 import 'package:bookaway_flutter/dao/daoModule.dart';
-import 'package:bookaway_flutter/repo/repoModule.dart';
 import 'package:bookaway_flutter/navigation/Navigator.dart';
+import 'package:bookaway_flutter/repo/repoModule.dart';
+import 'package:bookaway_flutter/service/serviceModule.dart';
 import 'package:flutter/material.dart';
 import 'package:koin/koin.dart';
 
 void main() {
   startKoin((app){
-    app.modules([repoModule, daoModule]);
+    app.modules([serviceModule, repoModule, daoModule]);
   });
 
   runApp(MyApp());

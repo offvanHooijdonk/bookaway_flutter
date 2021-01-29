@@ -15,14 +15,8 @@ class BookDao {
 
   void update(BookModel book) async {
     final Database db = await _database;
-    await db.update("books", {
-      "title": book.title,
-      "updatedAt": DateTime.now(),
-      "deadLine": book.deadline,
-      "ownerId": book.ownerId,
-      "status": book.status,
-      "readerId": book.readerId,
-    });
+    book.updatedAt = DateTime.now();
+    await db.update("books", book.toMap(), where: "id = ?", whereArgs: [book.id]);
   }
 
   Future<List<BookModel>> listAll() async {
