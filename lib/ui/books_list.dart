@@ -39,7 +39,10 @@ class _BooksListScreenState extends State<BooksListScreen> {
                     BookModel book = snapshot.data[index];
                     return Card(
                         child: InkWell(
-                            onTap: () => {Nav(context).navBookInfo(book.id)},
+                            onTap: () async {
+                              await Nav(context).navBookInfo(book.id);
+                              setState(() {});
+                            },
                             child: Container(
                               padding: EdgeInsets.all(16),
                               child: Column(children: [
